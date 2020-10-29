@@ -1,6 +1,6 @@
-namespace Dotnet_project_template_test
+namespace BullsAndCowsTest
 {
-    using Dotnet_project_template;
+    using BullsAndCows;
     using Xunit;
 
     public class UnitTest1
