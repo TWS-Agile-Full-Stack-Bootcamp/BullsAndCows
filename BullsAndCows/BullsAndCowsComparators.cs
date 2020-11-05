@@ -10,7 +10,12 @@ namespace BullsAndCows
 
         public string CompareNumber(string answer, string guess)
         {
-            return "4A0B";
+            if (answer.Equals(guess))
+            {
+                return "4A0B";
+            }
+
+            return "0A0B";
         }
     }
 }
