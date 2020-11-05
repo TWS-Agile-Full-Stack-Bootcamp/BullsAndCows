@@ -11,15 +11,22 @@ namespace BullsAndCows
 
         public string CompareNumber(string answer, string guess)
         {
-            if (answer.Equals(guess))
-            {
-                return "4A0B";
-            }
+            int aCount = CountA(answer, guess);
+            int numberRightCount = CountRightNumber(answer, guess);
+            int bCount = numberRightCount - aCount;
 
-            return $"0A{CountB(answer, guess)}B";
+            return $"{aCount}A{bCount}B";
         }
 
-        private int CountB(string answer, string guess)
+        private int CountA(string answer, string guess)
+        {
+            string[] answerNumbers = answer.Split(" ");
+            string[] guessNumbers = guess.Split(" ");
+            return answerNumbers.Where(answerNumber =>
+                answerNumber.Equals(guessNumbers[Array.IndexOf(answerNumbers, answerNumber)])).Count();
+        }
+
+        private int CountRightNumber(string answer, string guess)
         {
             return answer.Split(" ").Intersect(guess.Split(" ")).Count();
         }

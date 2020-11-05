@@ -64,5 +64,20 @@ namespace BullsAndCowsTest
             // then
             Assert.Equal("0A1B", xAxB);
         }
+
+        [Fact]
+        public void Should_return_nAmB_when_guess_given_numbers_all_correct_and_position_partial_correct()
+        {
+            // given
+            string answer = "1 2 3 4";
+            string guess = "1 2 4 3";
+
+            // when
+            BullsAndCowsComparators comparators = new BullsAndCowsComparators();
+            string xAxB = comparators.CompareNumber(answer, guess);
+
+            // then
+            Assert.Equal("2A2B", xAxB);
+        }
     }
 }
