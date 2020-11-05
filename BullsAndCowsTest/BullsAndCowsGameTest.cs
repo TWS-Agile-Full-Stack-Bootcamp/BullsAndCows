@@ -1,10 +1,20 @@
 namespace BullsAndCowsTest
 {
+    using System;
+    using System.Collections.Generic;
     using BullsAndCows;
+    using Moq;
     using Xunit;
 
     public class BullsAndCowsGameTest
     {
+        private AnswerGenerator answerGenerator;
+
+        public BullsAndCowsGameTest()
+        {
+            this.answerGenerator = new AnswerGenerator(new Random());
+        }
+
         [Fact]
         public void Should_return_true_when_ValidateGuess_given_4_different_numbers()
         {
@@ -12,7 +22,7 @@ namespace BullsAndCowsTest
             string guess = "1 2 3 4";
 
             // when
-            BullsAndCowsGame game = new BullsAndCowsGame();
+            BullsAndCowsGame game = new BullsAndCowsGame(answerGenerator);
             bool isValid = game.ValidateGuess(guess);
 
             // then
@@ -26,7 +36,7 @@ namespace BullsAndCowsTest
             string guess = "1 2";
 
             // when
-            BullsAndCowsGame game = new BullsAndCowsGame();
+            BullsAndCowsGame game = new BullsAndCowsGame(answerGenerator);
             bool isValid = game.ValidateGuess(guess);
 
             // then
@@ -40,7 +50,7 @@ namespace BullsAndCowsTest
             string guess = "1 1 2 3";
 
             // when
-            BullsAndCowsGame game = new BullsAndCowsGame();
+            BullsAndCowsGame game = new BullsAndCowsGame(answerGenerator);
             bool isValid = game.ValidateGuess(guess);
 
             // then
@@ -55,7 +65,7 @@ namespace BullsAndCowsTest
             string guess = "1 1 2 3";
 
             // when
-            BullsAndCowsGame game = new BullsAndCowsGame();
+            BullsAndCowsGame game = new BullsAndCowsGame(answerGenerator);
             string result = game.Guess(answer, guess);
 
             // then
@@ -70,11 +80,25 @@ namespace BullsAndCowsTest
             string guess = "1 2 5 6";
 
             // when
-            BullsAndCowsGame game = new BullsAndCowsGame();
+            BullsAndCowsGame game = new BullsAndCowsGame(answerGenerator);
             string result = game.Guess(answer, guess);
 
             // then
             Assert.Equal("2A0B", result);
+        }
+
+        [Fact]
+        public void Should_call_Generate_when_create_BullsAndCowsGame()
+        {
+            // given
+            var mock = new Mock<AnswerGenerator>(new Random());
+            mock.Setup(_ => _.Generate()).Returns(new List<int> { 1, 2, 3, 4 });
+
+            // when
+            new BullsAndCowsGame(mock.Object);
+
+            // then
+            mock.Verify(_ => _.Generate());
         }
     }
 }

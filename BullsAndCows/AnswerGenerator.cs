@@ -13,7 +13,7 @@ namespace BullsAndCows
             this.random = random;
         }
 
-        public List<int> Generate()
+        public virtual List<int> Generate()
         {
             List<int> answer = new List<int>();
             int numberCount = 0;

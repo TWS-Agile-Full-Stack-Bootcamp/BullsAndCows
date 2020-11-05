@@ -7,8 +7,13 @@ namespace BullsAndCows
         private const int VALID_GUESS_STRING_LENGTH = 7;
         private const int VALID_GUESS_NUMBER_COUNT = 4;
 
-        public BullsAndCowsGame()
+        private AnswerGenerator answerGenerator;
+        private string answer;
+
+        public BullsAndCowsGame(AnswerGenerator answerGenerator)
         {
+            this.answerGenerator = answerGenerator;
+            answer = string.Join(" ", answerGenerator.Generate());
         }
 
         public bool ValidateGuess(string guess)
