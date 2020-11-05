@@ -10,6 +10,7 @@ namespace BullsAndCows
         private const string WrongInputMessage = "Wrong Input，Input again";
         private const int MaxTryChances = 6;
         private const string FailedMessage = "You are failed";
+        private readonly string answer;
         private int triedChances = 0;
 
         public BullsAndCowsGame(AnswerGenerator answerGeneratorObject = null)
@@ -17,7 +18,7 @@ namespace BullsAndCows
             triedChances = 0;
             if (answerGeneratorObject != null)
             {
-                answerGeneratorObject.Generate();
+                answer = answerGeneratorObject.Generate();
             }
         }
 
@@ -39,7 +40,7 @@ namespace BullsAndCows
                 return FailedMessage;
             }
 
-            return string.Empty;
+            return "0A0B";
         }
 
         private bool IsOverMaxTryChances()
@@ -47,12 +48,12 @@ namespace BullsAndCows
             return this.triedChances >= MaxTryChances;
         }
 
-        private static bool IsInputLengthInvalid(string input)
+        private bool IsInputLengthInvalid(string input)
         {
             return input.Length != 4;
         }
 
-        private static bool IsInputDigitNoUnique(string input)
+        private bool IsInputDigitNoUnique(string input)
         {
             return input.ToCharArray().GroupBy(c => c).ToList().Count != 4;
         }

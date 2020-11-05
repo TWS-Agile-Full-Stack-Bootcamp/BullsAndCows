@@ -73,5 +73,20 @@ namespace BullsAndCowsTest
             // then
             answerGenerator.Verify(a => a.Generate(), Times.Once);
         }
+
+        [Fact]
+        public void Should_return_0A0B_when_input_all_wrong()
+        {
+            // given
+            var answer = "1234";
+            var input = "6789";
+            var mockAnswerGenerator = new Mock<AnswerGenerator>();
+            mockAnswerGenerator.Setup(_ => _.Generate()).Returns(string.Empty);
+            var game = new BullsAndCowsGame(mockAnswerGenerator.Object);
+            // when
+            var output = game.Guess(input);
+            // then
+            Assert.Equal("0A0B", output);
+        }
     }
 }
