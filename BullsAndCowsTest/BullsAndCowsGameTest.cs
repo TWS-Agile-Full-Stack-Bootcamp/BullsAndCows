@@ -29,5 +29,17 @@ namespace BullsAndCowsTest
             //then
             Assert.Equal("Wrong Input，Input again", output);
         }
+
+        [Fact]
+        public void Should_return_wrong_input_when_input_digit_no_unique()
+        {
+            // given
+            var bullsAndCowsGame = new BullsAndCowsGame();
+            var inputWithNoUniqueDigit = "1134";
+            // when
+            var output = bullsAndCowsGame.Guess(inputWithNoUniqueDigit);
+            //then
+            Assert.Equal("Wrong Input，Input again", output);
+        }
     }
 }
