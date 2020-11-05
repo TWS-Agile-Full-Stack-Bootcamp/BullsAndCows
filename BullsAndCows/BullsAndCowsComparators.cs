@@ -16,12 +16,12 @@ namespace BullsAndCows
                 return "4A0B";
             }
 
-            if (answer.Split(" ").Intersect(guess.Split(" ")).Count() == 4)
-            {
-                return "0A4B";
-            }
+            return $"0A{CountB(answer, guess)}B";
+        }
 
-            return "0A0B";
+        private int CountB(string answer, string guess)
+        {
+            return answer.Split(" ").Intersect(guess.Split(" ")).Count();
         }
     }
 }
