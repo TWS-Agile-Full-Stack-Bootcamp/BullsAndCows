@@ -7,23 +7,31 @@ namespace BullsAndCows
 
     public class BullsAndCowsGame
     {
-        private const string WrongInputInputAgain = "Wrong Input，Input again";
+        private const string WrongInputMessage = "Wrong Input，Input again";
 
         public string Guess(string input)
         {
-            if (input.Length != 4)
+            if (IsInputLengthInvalid(input))
             {
-                return WrongInputInputAgain;
+                return WrongInputMessage;
             }
 
-            var group = input.ToCharArray().GroupBy(c => c);
-
-            if (group.ToList().Count != 4)
+            if (IsInputDigitNoUnique(input))
             {
-                return WrongInputInputAgain;
+                return WrongInputMessage;
             }
 
             return string.Empty;
+        }
+
+        private static bool IsInputLengthInvalid(string input)
+        {
+            return input.Length != 4;
+        }
+
+        private static bool IsInputDigitNoUnique(string input)
+        {
+            return input.ToCharArray().GroupBy(c => c).ToList().Count != 4;
         }
     }
 }
