@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using BullsAndCows;
+using Moq;
 using Xunit;
 
 namespace BullsAndCowsTest
@@ -57,6 +58,20 @@ namespace BullsAndCowsTest
             var output = bullsAndCowsGame.Guess(inputWithNoUniqueDigit);
             //then
             Assert.Equal("You are failed", output);
+        }
+
+        [Fact]
+        public void Should_execute_AnswerGenerate_Generate_method_when_game_start()
+        {
+            // given
+            var answerGenerator = new Mock<AnswerGenerator>();
+            answerGenerator.Setup(_ => _.Generate()).Returns(string.Empty);
+            var game = new BullsAndCowsGame(answerGenerator.Object);
+            var input = "1234";
+            // when
+            game.Guess(input);
+            // then
+            answerGenerator.Verify(a => a.Generate(), Times.Once);
         }
     }
 }

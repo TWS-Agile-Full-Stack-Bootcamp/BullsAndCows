@@ -5,7 +5,7 @@ namespace BullsAndCows
 {
     public class AnswerGenerator
     {
-        public string Generate()
+        public virtual string Generate()
         {
             var backupDigits = Enumerable.Range(0, 9).ToList();
             Random random = new Random();

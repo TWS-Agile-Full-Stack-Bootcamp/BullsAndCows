@@ -5,7 +5,7 @@ namespace BullsAndCowsTest
     using BullsAndCows;
     using Xunit;
 
-    public class UnitTest1
+    public class AnswerGeneratorTest
     {
         [Fact]
         public void Should_generate_answer_with_unique_digit()

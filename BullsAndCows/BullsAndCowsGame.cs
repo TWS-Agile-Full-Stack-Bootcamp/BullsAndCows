@@ -12,9 +12,13 @@ namespace BullsAndCows
         private const string FailedMessage = "You are failed";
         private int triedChances = 0;
 
-        public BullsAndCowsGame()
+        public BullsAndCowsGame(AnswerGenerator answerGeneratorObject = null)
         {
             triedChances = 0;
+            if (answerGeneratorObject != null)
+            {
+                answerGeneratorObject.Generate();
+            }
         }
 
         public string Guess(string input)
