@@ -9,10 +9,12 @@ namespace BullsAndCowsTest
     public class BullsAndCowsGameTest
     {
         private AnswerGenerator answerGenerator;
+        private IConsole console;
 
         public BullsAndCowsGameTest()
         {
             this.answerGenerator = new AnswerGenerator(new Random());
+            this.console = new ConsoleWrapper();
         }
 
         [Fact]
@@ -22,7 +24,7 @@ namespace BullsAndCowsTest
             string guess = "1 2 3 4";
 
             // when
-            BullsAndCowsGame game = new BullsAndCowsGame(answerGenerator);
+            BullsAndCowsGame game = new BullsAndCowsGame(answerGenerator, console);
             bool isValid = game.ValidateGuess(guess);
 
             // then
@@ -36,7 +38,7 @@ namespace BullsAndCowsTest
             string guess = "1 2";
 
             // when
-            BullsAndCowsGame game = new BullsAndCowsGame(answerGenerator);
+            BullsAndCowsGame game = new BullsAndCowsGame(answerGenerator, console);
             bool isValid = game.ValidateGuess(guess);
 
             // then
@@ -50,7 +52,7 @@ namespace BullsAndCowsTest
             string guess = "1 1 2 3";
 
             // when
-            BullsAndCowsGame game = new BullsAndCowsGame(answerGenerator);
+            BullsAndCowsGame game = new BullsAndCowsGame(answerGenerator, console);
             bool isValid = game.ValidateGuess(guess);
 
             // then
@@ -65,7 +67,7 @@ namespace BullsAndCowsTest
             string guess = "1 1 2 3";
 
             // when
-            BullsAndCowsGame game = new BullsAndCowsGame(answerGenerator);
+            BullsAndCowsGame game = new BullsAndCowsGame(answerGenerator, console);
             string result = game.Guess(answer, guess);
 
             // then
@@ -80,7 +82,7 @@ namespace BullsAndCowsTest
             string guess = "1 2 5 6";
 
             // when
-            BullsAndCowsGame game = new BullsAndCowsGame(answerGenerator);
+            BullsAndCowsGame game = new BullsAndCowsGame(answerGenerator, console);
             string result = game.Guess(answer, guess);
 
             // then
@@ -95,10 +97,28 @@ namespace BullsAndCowsTest
             mock.Setup(_ => _.Generate()).Returns(new List<int> { 1, 2, 3, 4 });
 
             // when
-            new BullsAndCowsGame(mock.Object);
+            new BullsAndCowsGame(mock.Object, console);
 
             // then
             mock.Verify(_ => _.Generate());
+        }
+
+        [Fact]
+        public void Should_finish_game_when_guess_right_in_first_round()
+        {
+            // given
+            var mockAnswerGenerator = new Mock<AnswerGenerator>(new Random());
+            mockAnswerGenerator.Setup(_ => _.Generate()).Returns(new List<int> { 1, 2, 3, 4 });
+
+            var mockIConsole = new Mock<IConsole>();
+            mockIConsole.Setup(_ => _.ReadLine()).Returns("1 2 3 4");
+            BullsAndCowsGame game = new BullsAndCowsGame(mockAnswerGenerator.Object, mockIConsole.Object);
+
+            // when
+            game.Run();
+
+            // then
+            mockIConsole.Verify(_ => _.WriteLine("4A0B"));
         }
     }
 }
