@@ -46,5 +46,20 @@ namespace BullsAndCowsTest
             // then
             Assert.False(isValid);
         }
+
+        [Fact]
+        public void Should_return_wrong_input_message_when_Guess_given_invalid_guess()
+        {
+            // given
+            string answer = "1 2 3 4";
+            string guess = "1 1 2 3";
+
+            // when
+            BullsAndCowsGame game = new BullsAndCowsGame();
+            string result = game.Guess(guess, answer);
+
+            // then
+            Assert.Equal("Wrong Input，Input again", result);
+        }
     }
 }

@@ -16,5 +16,10 @@ namespace BullsAndCows
             return guess.Length == VALID_GUESS_STRING_LENGTH
                 && guess.Split(" ").Distinct().Count() == VALID_GUESS_NUMBER_COUNT;
         }
+
+        public string Guess(string guess, string answer)
+        {
+            return "Wrong Input，Input again";
+        }
     }
 }
