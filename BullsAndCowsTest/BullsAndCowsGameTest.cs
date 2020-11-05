@@ -120,5 +120,31 @@ namespace BullsAndCowsTest
             // then
             mockIConsole.Verify(_ => _.WriteLine("4A0B"));
         }
+
+        [Fact]
+        public void Should_finish_game_when_guess_wrong_in_all_6_rounds()
+        {
+            // given
+            var mockAnswerGenerator = new Mock<AnswerGenerator>(new Random());
+            mockAnswerGenerator.Setup(_ => _.Generate()).Returns(new List<int> { 1, 2, 3, 4 });
+
+            var mockIConsole = new Mock<IConsole>();
+            mockIConsole.SetupSequence(_ => _.ReadLine())
+                .Returns("1 1 2 3")
+                .Returns("1 1")
+                .Returns("1 3 2 4")
+                .Returns("1 4 3 2")
+                .Returns("5 6 7 8")
+                .Returns("9 8 7 6");
+            BullsAndCowsGame game = new BullsAndCowsGame(mockAnswerGenerator.Object, mockIConsole.Object);
+
+            // when
+            game.Run();
+
+            // then
+            mockIConsole.Verify(_ => _.WriteLine("Wrong Input，Input again"), Times.Exactly(2));
+            mockIConsole.Verify(_ => _.WriteLine("2A2B"), Times.Exactly(2));
+            mockIConsole.Verify(_ => _.WriteLine("0A0B"), Times.Exactly(2));
+        }
     }
 }
