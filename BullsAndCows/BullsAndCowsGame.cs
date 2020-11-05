@@ -7,9 +7,6 @@ namespace BullsAndCows
 
     public class BullsAndCowsGame
     {
-        private const string WrongInputMessage = "Wrong Input，Input again";
-        private const int MaxTryChances = 6;
-        private const string FailedMessage = "You are failed";
         private readonly string answer;
         private int triedChances = 0;
 
@@ -24,23 +21,22 @@ namespace BullsAndCows
 
         public string Guess(string input)
         {
-            triedChances++;
-            if (IsInputLengthInvalid(input))
+            try
             {
-                return WrongInputMessage;
-            }
+                VerifyInputLength(input);
 
-            if (IsInputDigitNoUnique(input))
+                VerifyInputDigitUnique(input);
+
+                VerifyGuessChances();
+
+                triedChances++;
+
+                return CompareInputAndAnswer(input);
+            }
+            catch (Exception ex)
             {
-                return WrongInputMessage;
+                return ex.Message;
             }
-
-            if (IsOverMaxTryChances())
-            {
-                return FailedMessage;
-            }
-
-            return CompareInputAndAnswer(input);
         }
 
         private string CompareInputAndAnswer(string input)
@@ -48,49 +44,70 @@ namespace BullsAndCows
             int correctPositionCount = 0;
             int wrongPositionCount = 0;
             input.Select((digit, index) =>
+            {
+                if (this.answer.Contains(digit))
                 {
-                    if (this.answer.Contains(digit))
+                    if (this.answer[index] == digit)
                     {
-                        if (this.answer[index] == digit)
-                        {
-                            correctPositionCount++;
-                        }
-                        else
-                        {
-                            wrongPositionCount++;
-                        }
+                        correctPositionCount++;
                     }
+                    else
+                    {
+                        wrongPositionCount++;
+                    }
+                }
 
-                    return string.Empty;
-                }).ToList();
+                return string.Empty;
+            }).ToList();
             return $"{correctPositionCount}A{wrongPositionCount}B";
         }
 
-        private bool IsOverMaxTryChances()
+        private void VerifyGuessChances()
         {
-            return this.triedChances >= MaxTryChances;
+            if (this.triedChances >= Constant.MaxTryChances)
+            {
+                throw new GuessChancesOverMaxException();
+            }
         }
 
-        private bool IsInputLengthInvalid(string input)
+        private void VerifyInputLength(string input)
         {
-            return input.Length != 4;
+            if (input.Length != Constant.INPUT_LENGTH)
+            {
+                throw new InputLengthInvalidException();
+            }
         }
 
-        private bool IsInputDigitNoUnique(string input)
+        private void VerifyInputDigitUnique(string input)
         {
-            return input.ToCharArray().GroupBy(c => c).ToList().Count != 4;
+            if (input.ToCharArray().GroupBy(c => c).ToList().Count != 4)
+            {
+                throw new DigitNoUniqueException();
+            }
         }
     }
 
-    internal class DigitWithIndex
+    public class DigitNoUniqueException : Exception
     {
-        public DigitWithIndex(char digit, int index)
+        public DigitNoUniqueException()
+            : base(Constant.WrongInputMessage)
         {
-            Digit = digit;
-            Index = index;
         }
+    }
 
-        public char Digit { get; private set; }
-        public int Index { get; private set; }
+    public class InputLengthInvalidException : Exception
+    {
+        public InputLengthInvalidException()
+            : base(Constant.WrongInputMessage)
+        {
+        }
+    }
+
+    public class GuessChancesOverMaxException : Exception
+    {
+        public GuessChancesOverMaxException()
+            : base(Constant.FailedMessage)
+        {
+        }
     }
 }
