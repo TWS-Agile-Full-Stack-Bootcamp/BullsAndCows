@@ -9,7 +9,12 @@ namespace BullsAndCows
 
         public bool ValidateGuess(string guess)
         {
-            return true;
+            if (guess.Length == 7)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

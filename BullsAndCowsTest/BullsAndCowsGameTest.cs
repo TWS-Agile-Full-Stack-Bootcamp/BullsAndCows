@@ -18,5 +18,19 @@ namespace BullsAndCowsTest
             // then
             Assert.True(isValid);
         }
+
+        [Fact]
+        public void Should_return_false_when_ValidateGuess_given_2_numbers()
+        {
+            // given
+            string guess = "1 2";
+
+            // when
+            BullsAndCowsGame game = new BullsAndCowsGame();
+            bool isValid = game.ValidateGuess(guess);
+
+            // then
+            Assert.False(isValid);
+        }
     }
 }
