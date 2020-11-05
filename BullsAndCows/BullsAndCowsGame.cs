@@ -8,7 +8,7 @@
 
         public string Guess(string input)
         {
-            if (input.Length < 4)
+            if (input.Length != 4)
             {
                 return WrongInputInputAgain;
             }
