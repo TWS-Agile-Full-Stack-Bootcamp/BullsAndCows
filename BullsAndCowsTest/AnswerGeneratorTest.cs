@@ -19,9 +19,23 @@ namespace BullsAndCowsTest
             Assert.True(IsValidAnswer(answer));
         }
 
+        [Fact]
+        public void Should_generate_different_answer()
+        {
+            // given
+            var answerGenerator = new AnswerGenerator();
+            // when
+            var answer1 = answerGenerator.Generate();
+            var answer2 = answerGenerator.Generate();
+            //then
+            Assert.True(IsValidAnswer(answer1));
+            Assert.True(IsValidAnswer(answer2));
+            Assert.True(answer1 != answer2);
+        }
+
         private bool IsValidAnswer(string answer)
         {
-            var digits = Enumerable.Range(1, 9);
+            var digits = Enumerable.Range(0, 9);
             var answerContainsDigits = digits.Where(digit => answer.Contains(digit.ToString())).ToList();
             return answerContainsDigits.Count == 4;
         }
