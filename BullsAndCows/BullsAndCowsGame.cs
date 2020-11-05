@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 namespace BullsAndCows
 {
     public class BullsAndCowsGame
@@ -9,12 +10,7 @@ namespace BullsAndCows
 
         public bool ValidateGuess(string guess)
         {
-            if (guess.Length == 7)
-            {
-                return true;
-            }
-
-            return false;
+            return guess.Length == 7 && guess.Split(" ").Distinct().Count() == 4;
         }
     }
 }

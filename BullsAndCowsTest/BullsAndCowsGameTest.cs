@@ -32,5 +32,19 @@ namespace BullsAndCowsTest
             // then
             Assert.False(isValid);
         }
+
+        [Fact]
+        public void Should_return_false_when_ValidateGuess_given_4_numbers_with_duplicate()
+        {
+            // given
+            string guess = "1 1 2 3";
+
+            // when
+            BullsAndCowsGame game = new BullsAndCowsGame();
+            bool isValid = game.ValidateGuess(guess);
+
+            // then
+            Assert.False(isValid);
+        }
     }
 }
