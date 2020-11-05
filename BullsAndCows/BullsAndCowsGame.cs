@@ -8,9 +8,18 @@ namespace BullsAndCows
     public class BullsAndCowsGame
     {
         private const string WrongInputMessage = "Wrong Input，Input again";
+        private const int MaxTryChances = 6;
+        private const string FailedMessage = "You are failed";
+        private int triedChances = 0;
+
+        public BullsAndCowsGame()
+        {
+            triedChances = 0;
+        }
 
         public string Guess(string input)
         {
+            triedChances++;
             if (IsInputLengthInvalid(input))
             {
                 return WrongInputMessage;
@@ -21,7 +30,17 @@ namespace BullsAndCows
                 return WrongInputMessage;
             }
 
+            if (IsOverMaxTryChances())
+            {
+                return FailedMessage;
+            }
+
             return string.Empty;
+        }
+
+        private bool IsOverMaxTryChances()
+        {
+            return this.triedChances >= MaxTryChances;
         }
 
         private static bool IsInputLengthInvalid(string input)
