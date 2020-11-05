@@ -17,9 +17,14 @@ namespace BullsAndCows
                 && guess.Split(" ").Distinct().Count() == VALID_GUESS_NUMBER_COUNT;
         }
 
-        public string Guess(string guess, string answer)
+        public string Guess(string answer, string guess)
         {
-            return "Wrong Input，Input again";
+            if (!ValidateGuess(guess))
+            {
+                return "Wrong Input，Input again";
+            }
+
+            return new BullsAndCowsComparators().CompareNumber(answer, guess);
         }
     }
 }

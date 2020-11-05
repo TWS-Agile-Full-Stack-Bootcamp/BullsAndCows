@@ -56,10 +56,25 @@ namespace BullsAndCowsTest
 
             // when
             BullsAndCowsGame game = new BullsAndCowsGame();
-            string result = game.Guess(guess, answer);
+            string result = game.Guess(answer, guess);
 
             // then
             Assert.Equal("Wrong Input，Input again", result);
+        }
+
+        [Fact]
+        public void Should_return_xAxB_when_Guess_given_valid_guess()
+        {
+            // given
+            string answer = "1 2 3 4";
+            string guess = "1 2 5 6";
+
+            // when
+            BullsAndCowsGame game = new BullsAndCowsGame();
+            string result = game.Guess(answer, guess);
+
+            // then
+            Assert.Equal("2A0B", result);
         }
     }
 }
