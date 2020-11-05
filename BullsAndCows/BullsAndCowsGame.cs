@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 namespace BullsAndCows
 {
@@ -12,6 +13,7 @@ namespace BullsAndCows
         private AnswerGenerator answerGenerator;
         private string answer;
         private IConsole console;
+        private List<GuessResult> guessResults = new List<GuessResult>();
 
         public BullsAndCowsGame(AnswerGenerator answerGenerator, IConsole console)
         {
@@ -49,6 +51,11 @@ namespace BullsAndCows
                 {
                     break;
                 }
+
+                guessResults.Add(new GuessResult(guess, result));
+                string guessHistorys = string.Join("\n", guessResults.GetRange(0, guessResults.Count() - 1));
+
+                console.WriteLine(guessHistorys);
             }
         }
     }
