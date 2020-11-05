@@ -102,5 +102,18 @@ namespace BullsAndCowsTest
             var output = game.Guess(input);
             Assert.Equal("1A0B", output);
         }
+        
+        [Theory]
+        [InlineData("1234", "5167")]
+        [InlineData("1234", "5617")]
+        [InlineData("1234", "5671")]
+        public void Should_return_0A1B_when_1_position_wrong_and_other_digit_no_match(string input, string answer)
+        {
+            var mockAnswerGenerator = new Mock<AnswerGenerator>();
+            mockAnswerGenerator.Setup(_ => _.Generate()).Returns(answer);
+            var game = new BullsAndCowsGame(mockAnswerGenerator.Object);
+            var output = game.Guess(input);
+            Assert.Equal("0A1B", output);
+        }
     }
 }
