@@ -127,5 +127,17 @@ namespace BullsAndCowsTest
             var output = game.Guess(input);
             Assert.Equal("2A2B", output);
         }
+        
+        [Theory]
+        [InlineData("1234", "1234")]
+        [InlineData("5678", "5678")]
+        public void Should_return_4A0B_when_4_position_correct(string input, string answer)
+        {
+            var mockAnswerGenerator = new Mock<AnswerGenerator>();
+            mockAnswerGenerator.Setup(_ => _.Generate()).Returns(answer);
+            var game = new BullsAndCowsGame(mockAnswerGenerator.Object);
+            var output = game.Guess(input);
+            Assert.Equal("4A0B", output);
+        }
     }
 }
