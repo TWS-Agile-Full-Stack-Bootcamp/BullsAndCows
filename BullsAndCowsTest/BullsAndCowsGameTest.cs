@@ -54,7 +54,7 @@ namespace BullsAndCowsTest
             {
                 bullsAndCowsGame.Guess(inputWithNoUniqueDigit);
             }
-            
+
             var output = bullsAndCowsGame.Guess(inputWithNoUniqueDigit);
             //then
             Assert.Equal("You are failed", output);
@@ -87,6 +87,20 @@ namespace BullsAndCowsTest
             var output = game.Guess(input);
             // then
             Assert.Equal("0A0B", output);
+        }
+
+        [Theory]
+        [InlineData("1234", "1567")]
+        [InlineData("2134", "5167")]
+        [InlineData("2314", "5617")]
+        [InlineData("2341", "5671")]
+        public void Should_return_1A0B_when_1_position_correct_and_other_wrong(string input, string answer)
+        {
+            var mockAnswerGenerator = new Mock<AnswerGenerator>();
+            mockAnswerGenerator.Setup(_ => _.Generate()).Returns(answer);
+            var game = new BullsAndCowsGame(mockAnswerGenerator.Object);
+            var output = game.Guess(input);
+            Assert.Equal("1A0B", output);
         }
     }
 }

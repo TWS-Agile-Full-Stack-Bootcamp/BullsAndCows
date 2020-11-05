@@ -40,7 +40,30 @@ namespace BullsAndCows
                 return FailedMessage;
             }
 
-            return "0A0B";
+            return CompareInputAndAnswer(input);
+        }
+
+        private string CompareInputAndAnswer(string input)
+        {
+            int correctPositionCount = 0;
+            int wrongPositionCount = 0;
+            input.Select((digit, index) =>
+                {
+                    if (this.answer.Contains(digit))
+                    {
+                        if (this.answer[index] == digit)
+                        {
+                            correctPositionCount++;
+                        }
+                        else
+                        {
+                            wrongPositionCount++;
+                        }
+                    }
+
+                    return string.Empty;
+                }).ToList();
+            return $"{correctPositionCount}A{wrongPositionCount}B";
         }
 
         private bool IsOverMaxTryChances()
@@ -57,5 +80,17 @@ namespace BullsAndCows
         {
             return input.ToCharArray().GroupBy(c => c).ToList().Count != 4;
         }
+    }
+
+    internal class DigitWithIndex
+    {
+        public DigitWithIndex(char digit, int index)
+        {
+            Digit = digit;
+            Index = index;
+        }
+
+        public char Digit { get; private set; }
+        public int Index { get; private set; }
     }
 }
