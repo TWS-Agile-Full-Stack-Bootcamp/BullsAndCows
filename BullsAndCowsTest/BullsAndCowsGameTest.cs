@@ -48,14 +48,31 @@ namespace BullsAndCowsTest
         {
             // given
             var bullsAndCowsGame = new BullsAndCowsGame();
-            var inputWithNoUniqueDigit = "1234";
+            var inputWithUniqueDigit = "1234";
             // when
             for (int i = 0; i < 6; i++)
             {
-                bullsAndCowsGame.Guess(inputWithNoUniqueDigit);
+                bullsAndCowsGame.Guess(inputWithUniqueDigit);
             }
 
-            var output = bullsAndCowsGame.Guess(inputWithNoUniqueDigit);
+            var output = bullsAndCowsGame.Guess(inputWithUniqueDigit);
+            //then
+            Assert.Equal("You are failed", output);
+        }
+
+        [Fact]
+        public void Should_return_fail_when_input_more_than_6_times_and_input_invalid()
+        {
+            // given
+            var bullsAndCowsGame = new BullsAndCowsGame();
+            var inputWithUniqueDigit = "12";
+            // when
+            for (int i = 0; i < 6; i++)
+            {
+                bullsAndCowsGame.Guess(inputWithUniqueDigit);
+            }
+
+            var output = bullsAndCowsGame.Guess(inputWithUniqueDigit);
             //then
             Assert.Equal("You are failed", output);
         }

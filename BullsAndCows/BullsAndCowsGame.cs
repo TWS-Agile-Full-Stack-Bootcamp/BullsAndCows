@@ -23,14 +23,10 @@ namespace BullsAndCows
         {
             try
             {
-                VerifyInputLength(input);
-
-                VerifyInputDigitUnique(input);
-
-                VerifyGuessChances();
-
                 triedChances++;
-
+                VerifyGuessChances();
+                VerifyInputLength(input);
+                VerifyInputDigitUnique(input);
                 return CompareInputAndAnswer(input);
             }
             catch (Exception ex)
