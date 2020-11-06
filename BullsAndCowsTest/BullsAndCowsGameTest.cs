@@ -18,13 +18,25 @@ namespace BullsAndCowsTest
             //then
             Assert.Equal("Wrong Input，Input again", output);
         }
+        
+        [Fact]
+        public void Should_return_wrong_input_when_propose_input_digit_greater_than_9()
+        {
+            // given
+            var bullsAndCowsGame = new BullsAndCowsGame();
+            var inputLengthLessThan4 = "12 3 4";
+            // when
+            var output = bullsAndCowsGame.Guess(inputLengthLessThan4);
+            //then
+            Assert.Equal("Wrong Input，Input again", output);
+        }
 
         [Fact]
         public void Should_return_wrong_input_when_input_length_more_than_4()
         {
             // given
             var bullsAndCowsGame = new BullsAndCowsGame();
-            var inputLengthMoreThan4 = "12345";
+            var inputLengthMoreThan4 = "1 2 3 4 5";
             // when
             var output = bullsAndCowsGame.Guess(inputLengthMoreThan4);
             //then
@@ -36,7 +48,7 @@ namespace BullsAndCowsTest
         {
             // given
             var bullsAndCowsGame = new BullsAndCowsGame();
-            var inputWithNoUniqueDigit = "1134";
+            var inputWithNoUniqueDigit = "1 1 3 4";
             // when
             var output = bullsAndCowsGame.Guess(inputWithNoUniqueDigit);
             //then
@@ -48,7 +60,7 @@ namespace BullsAndCowsTest
         {
             // given
             var bullsAndCowsGame = new BullsAndCowsGame();
-            var inputWithUniqueDigit = "1234";
+            var inputWithUniqueDigit = "1 2 3 4";
             // when
             for (int i = 0; i < 6; i++)
             {
@@ -65,7 +77,7 @@ namespace BullsAndCowsTest
         {
             // given
             var bullsAndCowsGame = new BullsAndCowsGame();
-            var inputWithUniqueDigit = "12";
+            var inputWithUniqueDigit = "1 2";
             // when
             for (int i = 0; i < 6; i++)
             {
@@ -84,7 +96,7 @@ namespace BullsAndCowsTest
             var answerGenerator = new Mock<AnswerGenerator>();
             answerGenerator.Setup(_ => _.Generate()).Returns(string.Empty);
             var game = new BullsAndCowsGame(answerGenerator.Object);
-            var input = "1234";
+            var input = "1 2 3 4";
             // when
             game.Guess(input);
             // then
@@ -96,7 +108,7 @@ namespace BullsAndCowsTest
         {
             // given
             var answer = "1234";
-            var input = "6789";
+            var input = "6 7 8 9";
             var mockAnswerGenerator = new Mock<AnswerGenerator>();
             mockAnswerGenerator.Setup(_ => _.Generate()).Returns(string.Empty);
             var game = new BullsAndCowsGame(mockAnswerGenerator.Object);
@@ -107,10 +119,10 @@ namespace BullsAndCowsTest
         }
 
         [Theory]
-        [InlineData("1234", "1567")]
-        [InlineData("2134", "5167")]
-        [InlineData("2314", "5617")]
-        [InlineData("2341", "5671")]
+        [InlineData("1 2 3 4", "1567")]
+        [InlineData("2 1 3 4", "5167")]
+        [InlineData("2 3 1 4", "5617")]
+        [InlineData("2 3 4 1", "5671")]
         public void Should_return_1A0B_when_1_position_correct_and_other_wrong(string input, string answer)
         {
             var mockAnswerGenerator = new Mock<AnswerGenerator>();
@@ -121,9 +133,9 @@ namespace BullsAndCowsTest
         }
         
         [Theory]
-        [InlineData("1234", "5167")]
-        [InlineData("1234", "5617")]
-        [InlineData("1234", "5671")]
+        [InlineData("1 2 3 4", "5167")]
+        [InlineData("1 2 3 4", "5617")]
+        [InlineData("1 2 3 4", "5671")]
         public void Should_return_0A1B_when_1_position_wrong_and_other_digit_no_match(string input, string answer)
         {
             var mockAnswerGenerator = new Mock<AnswerGenerator>();
@@ -134,8 +146,8 @@ namespace BullsAndCowsTest
         }
         
         [Theory]
-        [InlineData("1234", "1243")]
-        [InlineData("1234", "2134")]
+        [InlineData("0 1 3 2", "0123")]
+        [InlineData("1 2 3 4", "2134")]
         public void Should_return_2A2B_when_2_position_correct_and_2_position_wrong(string input, string answer)
         {
             var mockAnswerGenerator = new Mock<AnswerGenerator>();
@@ -146,8 +158,8 @@ namespace BullsAndCowsTest
         }
         
         [Theory]
-        [InlineData("1234", "1234")]
-        [InlineData("5678", "5678")]
+        [InlineData("1 2 3 4", "1234")]
+        [InlineData("5 6 7 8", "5678")]
         public void Should_return_4A0B_when_4_position_correct(string input, string answer)
         {
             var mockAnswerGenerator = new Mock<AnswerGenerator>();
