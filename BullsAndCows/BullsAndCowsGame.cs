@@ -24,10 +24,12 @@ namespace BullsAndCows
             try
             {
                 triedChances++;
+                VerifyInputDigitRange(input);
+                var inputWithoutSpace = RemoveInputSpace(input);
                 VerifyGuessChances();
-                VerifyInputLength(input);
-                VerifyInputDigitUnique(input);
-                return CompareInputAndAnswer(input);
+                VerifyInput(inputWithoutSpace);
+                VerifyInputDigitUnique(inputWithoutSpace);
+                return CompareInputAndAnswer(inputWithoutSpace);
             }
             catch (Exception ex)
             {
@@ -66,12 +68,33 @@ namespace BullsAndCows
             }
         }
 
-        private void VerifyInputLength(string input)
+        private void VerifyInputDigitRange(string input)
+        {
+            if (input.Split(' ').ToList().Exists(inputString =>
+            {
+                if (int.TryParse(inputString, out var digit))
+                {
+                    return digit > 9 || digit < 0;
+                }
+
+                return true;
+            }))
+            {
+                throw new InputDigitNoValidException();
+            }
+        }
+
+        private void VerifyInput(string input)
         {
             if (input.Length != Constant.INPUT_LENGTH)
             {
                 throw new InputLengthInvalidException();
             }
+        }
+
+        private string RemoveInputSpace(string input)
+        {
+            return string.Join(string.Empty, input.Split(' '));
         }
 
         private void VerifyInputDigitUnique(string input)
@@ -94,6 +117,14 @@ namespace BullsAndCows
     public class InputLengthInvalidException : Exception
     {
         public InputLengthInvalidException()
+            : base(Constant.WrongInputMessage)
+        {
+        }
+    }
+
+    public class InputDigitNoValidException : Exception
+    {
+        public InputDigitNoValidException()
             : base(Constant.WrongInputMessage)
         {
         }
