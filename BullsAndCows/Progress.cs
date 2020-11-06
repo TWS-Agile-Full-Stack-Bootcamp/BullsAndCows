@@ -2,7 +2,7 @@ using System;
 
 namespace BullsAndCows
 {
-    public static class Progre1ss
+    public static class Progress
     {
         private static void Main(string[] args)
         {
