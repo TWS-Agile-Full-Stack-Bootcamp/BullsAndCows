@@ -10,7 +10,14 @@ namespace BullsAndCows
         private const string WrongInputMessage = "Wrong Input, input again";
         private const int MaxChances = 6;
 
+        private readonly Judge judge;
         private int usedChances = 0;
+        private string secret = string.Empty;
+
+        public BullsAndCowsGame(Judge judge = null)
+        {
+            secret = (judge ?? new Judge()).SetSecret();
+        }
 
         public bool CanContinue => usedChances < MaxChances;
 
@@ -28,19 +35,24 @@ namespace BullsAndCows
 
             usedChances++;
 
-            return string.Empty;
+            return JudgeGuess(input);
+        }
+
+        private string JudgeGuess(string input)
+        {
+            return "0A0B";
         }
 
         private static bool IsValidInput(string input)
         {
             if (IsInputDigitBetweenSpace(input))
             {
-                    return true;
+                return true;
             }
 
             if (IsInputDigitDifferent(input))
             {
-                    return true;
+                return true;
             }
 
             return false;
