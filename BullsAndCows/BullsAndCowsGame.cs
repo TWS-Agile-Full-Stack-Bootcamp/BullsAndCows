@@ -13,13 +13,20 @@ namespace BullsAndCows
         private readonly Judge judge;
         private int usedChances = 0;
         private string secret = string.Empty;
+        private bool isWon = false;
 
         public BullsAndCowsGame(Judge judge = null)
         {
             secret = (judge ?? new Judge()).SetSecret();
         }
 
-        public bool CanContinue => usedChances < MaxChances;
+        public bool CanContinue
+        {
+            get
+            {
+                return !isWon && usedChances < MaxChances;
+            }
+        }
 
         public string JudgeAnswer(string input)
         {
@@ -51,7 +58,17 @@ namespace BullsAndCows
                 }
             }
 
+            UpdateWinStatus(correctInputDigitCount);
+
             return $"{correctInputDigitCount}A{inputDigitsInSecret.Count() - correctInputDigitCount}B";
+        }
+
+        private void UpdateWinStatus(int correctPositionDigit)
+        {
+            if (correctPositionDigit == InputDigitLength)
+            {
+                this.isWon = true;
+            }
         }
 
         private static bool IsValidInput(string input)

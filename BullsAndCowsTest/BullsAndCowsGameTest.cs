@@ -83,5 +83,17 @@ namespace BullsAndCowsTest
             var output = game.JudgeAnswer(input);
             Assert.Equal("1A0B", output);
         }
+
+        [Fact]
+        public void Should_game_over_when_all_digit_position_correct()
+        {
+            var mockJudge = new Mock<Judge>();
+            mockJudge.Setup(judge => judge.SetSecret()).Returns("1234");
+            var game = new BullsAndCowsGame(mockJudge.Object);
+            var input = "1 2 3 4";
+            var output = game.JudgeAnswer(input);
+            Assert.Equal("4A0B", output);
+            Assert.False(game.CanContinue);
+        }
     }
 }
