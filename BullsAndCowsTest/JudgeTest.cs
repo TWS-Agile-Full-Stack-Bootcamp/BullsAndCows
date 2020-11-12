@@ -9,15 +9,15 @@ namespace BullsAndCowsTest
         [Fact]
         public void Judge_should_set_secret_with_4_different_digit()
         {
-            Judge judge = new Judge();
-            string secret = judge.SetSecret();
+            SecretGenerator secretGenerator = new SecretGenerator();
+            string secret = secretGenerator.SetSecret();
             Assert.Equal(4, secret.Distinct().Count());
         }
 
         [Fact]
         public void Judge_should_set_different_secret_different()
         {
-            var judge = new Judge();
+            var judge = new SecretGenerator();
             var secretOne = judge.SetSecret();
             var secretTwo = judge.SetSecret();
             Assert.NotEqual(secretOne, secretTwo);

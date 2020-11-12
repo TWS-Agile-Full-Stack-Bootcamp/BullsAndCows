@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BullsAndCows
 {
-    public class Judge
+    public class SecretGenerator
     {
         public virtual string SetSecret()
         {

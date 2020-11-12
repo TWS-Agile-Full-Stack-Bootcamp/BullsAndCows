@@ -10,14 +10,14 @@ namespace BullsAndCows
         private const string WrongInputMessage = "Wrong Input, input again";
         private const int MaxChances = 6;
 
-        private readonly Judge judge;
+        private readonly SecretGenerator secretGenerator;
         private int usedChances = 0;
         private string secret = string.Empty;
         private bool isWon = false;
 
-        public BullsAndCowsGame(Judge judge = null)
+        public BullsAndCowsGame(SecretGenerator secretGenerator = null)
         {
-            secret = (judge ?? new Judge()).SetSecret();
+            secret = (secretGenerator ?? new SecretGenerator()).SetSecret();
         }
 
         public bool CanContinue

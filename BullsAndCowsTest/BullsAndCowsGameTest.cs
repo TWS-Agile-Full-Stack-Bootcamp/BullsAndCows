@@ -54,7 +54,7 @@ namespace BullsAndCowsTest
         [Fact]
         public void Should_return_0A0B_when_input_all_wrong()
         {
-            var mockJudge = new Mock<Judge>();
+            var mockJudge = new Mock<SecretGenerator>();
             mockJudge.Setup(judge => judge.SetSecret()).Returns("1234");
             var game = new BullsAndCowsGame(mockJudge.Object);
             var input = "5 6 7 8";
@@ -65,7 +65,7 @@ namespace BullsAndCowsTest
         [Fact]
         public void Should_return_0AxB_when_input_x_wrong_position()
         {
-            var mockJudge = new Mock<Judge>();
+            var mockJudge = new Mock<SecretGenerator>();
             mockJudge.Setup(judge => judge.SetSecret()).Returns("1234");
             var game = new BullsAndCowsGame(mockJudge.Object);
             var input = "4 5 6 7";
@@ -76,7 +76,7 @@ namespace BullsAndCowsTest
         [Fact]
         public void Should_return_xA0B_when_input_x_correct()
         {
-            var mockJudge = new Mock<Judge>();
+            var mockJudge = new Mock<SecretGenerator>();
             mockJudge.Setup(judge => judge.SetSecret()).Returns("1234");
             var game = new BullsAndCowsGame(mockJudge.Object);
             var input = "1 5 6 7";
@@ -87,7 +87,7 @@ namespace BullsAndCowsTest
         [Fact]
         public void Should_game_over_when_all_digit_position_correct()
         {
-            var mockJudge = new Mock<Judge>();
+            var mockJudge = new Mock<SecretGenerator>();
             mockJudge.Setup(judge => judge.SetSecret()).Returns("1234");
             var game = new BullsAndCowsGame(mockJudge.Object);
             var input = "1 2 3 4";
