@@ -8,8 +8,11 @@ namespace BullsAndCowsRunner
         public static void Main(string[] args)
         {
             BullsAndCowsGame game = new BullsAndCowsGame();
-            while (game.Status == GameStatus.Running)
+            while (game.CanContinue)
             {
+                var input = Console.ReadLine();
+                var output = game.Guess(input);
+                Console.WriteLine(output);
             }
 
             Console.WriteLine("Game Over");

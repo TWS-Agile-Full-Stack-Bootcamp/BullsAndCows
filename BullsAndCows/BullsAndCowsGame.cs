@@ -1,7 +1,14 @@
-﻿namespace BullsAndCows
+﻿using System;
+
+namespace BullsAndCows
 {
     public class BullsAndCowsGame
     {
-        public GameStatus Status { get; private set; }
+        public bool CanContinue { get; private set; }
+
+        public string Guess(string input)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
