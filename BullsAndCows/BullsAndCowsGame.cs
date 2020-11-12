@@ -40,7 +40,9 @@ namespace BullsAndCows
 
         private string JudgeGuess(string input)
         {
-            return "0A0B";
+            var digitWithoutSpace = input.Replace(" ", string.Empty);
+            var inputDigitsInSecret = digitWithoutSpace.Where(digit => secret.Contains(digit)).ToList();
+            return $"0A{inputDigitsInSecret.Count()}B";
         }
 
         private static bool IsValidInput(string input)
