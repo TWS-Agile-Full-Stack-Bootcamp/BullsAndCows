@@ -72,5 +72,16 @@ namespace BullsAndCowsTest
             var output = game.JudgeAnswer(input);
             Assert.Equal("0A1B", output);
         }
+
+        [Fact]
+        public void Should_return_xA0B_when_input_x_correct()
+        {
+            var mockJudge = new Mock<Judge>();
+            mockJudge.Setup(judge => judge.SetSecret()).Returns("1234");
+            var game = new BullsAndCowsGame(mockJudge.Object);
+            var input = "1 5 6 7";
+            var output = game.JudgeAnswer(input);
+            Assert.Equal("1A0B", output);
+        }
     }
 }

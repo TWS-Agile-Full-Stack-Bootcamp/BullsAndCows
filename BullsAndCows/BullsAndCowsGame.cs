@@ -42,7 +42,16 @@ namespace BullsAndCows
         {
             var digitWithoutSpace = input.Replace(" ", string.Empty);
             var inputDigitsInSecret = digitWithoutSpace.Where(digit => secret.Contains(digit)).ToList();
-            return $"0A{inputDigitsInSecret.Count()}B";
+            var correctInputDigitCount = 0;
+            for (int i = 0; i < InputDigitLength; i++)
+            {
+                if (digitWithoutSpace[i] == secret[i])
+                {
+                    correctInputDigitCount++;
+                }
+            }
+
+            return $"{correctInputDigitCount}A{inputDigitsInSecret.Count() - correctInputDigitCount}B";
         }
 
         private static bool IsValidInput(string input)
