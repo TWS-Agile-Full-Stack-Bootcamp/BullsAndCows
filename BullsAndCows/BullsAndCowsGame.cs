@@ -6,9 +6,15 @@ namespace BullsAndCows
     {
         public bool CanContinue { get; private set; }
 
-        public string Guess(string input)
+        public string Judge(string input)
         {
-            throw new NotImplementedException();
+            var splitedDigits = input.Split(' ');
+            if (splitedDigits.Length != 4)
+            {
+                return "Wrong Input, input again";
+            }
+
+            return string.Empty;
         }
     }
 }

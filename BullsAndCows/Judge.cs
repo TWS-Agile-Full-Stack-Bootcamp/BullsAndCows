@@ -13,9 +13,9 @@ namespace BullsAndCows
             Random random = new Random();
             for (int i = 0; i < 4; i++)
             {
-                var randmonIndex = random.Next(digits.Count);
-                secret += digits[randmonIndex];
-                digits.RemoveAt(randmonIndex);
+                var randomIndex = random.Next(digits.Count);
+                secret += digits[randomIndex];
+                digits.RemoveAt(randomIndex);
             }
 
             return secret;
