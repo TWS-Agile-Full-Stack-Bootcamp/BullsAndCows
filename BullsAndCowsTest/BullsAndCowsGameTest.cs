@@ -10,6 +10,7 @@ namespace BullsAndCowsTest
         {
             var game = new BullsAndCowsGame();
             Assert.NotNull(game);
+            Assert.True(game.CanContinue);
         }
     }
 }

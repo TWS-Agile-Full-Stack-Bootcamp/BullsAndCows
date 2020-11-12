@@ -4,7 +4,7 @@ namespace BullsAndCows
 {
     public class BullsAndCowsGame
     {
-        public bool CanContinue { get; private set; }
+        public bool CanContinue => true;
 
         public string Guess(string input)
         {
