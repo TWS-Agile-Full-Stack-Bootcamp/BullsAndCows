@@ -10,7 +10,7 @@ namespace BullsAndCowsTest
         public void Judge_should_set_secret_with_4_different_digit()
         {
             Judge judge = new Judge();
-            string secret = Judge.SetSecret();
+            string secret = judge.SetSecret();
             Assert.Equal(4, secret.Distinct().Count());
         }
 
@@ -18,8 +18,8 @@ namespace BullsAndCowsTest
         public void Judge_should_set_different_secret_different()
         {
             var judge = new Judge();
-            var secretOne = Judge.SetSecret();
-            var secretTwo = Judge.SetSecret();
+            var secretOne = judge.SetSecret();
+            var secretTwo = judge.SetSecret();
             Assert.NotEqual(secretOne, secretTwo);
         }
     }

@@ -11,7 +11,7 @@ namespace BullsAndCowsRunner
             while (game.CanContinue)
             {
                 var input = Console.ReadLine();
-                var output = game.Judge(input);
+                var output = game.JudgeAnswer(input);
                 Console.WriteLine(output);
             }
 

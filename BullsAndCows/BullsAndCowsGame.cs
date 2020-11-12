@@ -8,15 +8,25 @@ namespace BullsAndCows
         private const int InputDigitLength = 4;
         private const char SpaceSeparator = ' ';
         private const string WrongInputMessage = "Wrong Input, input again";
+        private const int MaxChances = 6;
 
-        public bool CanContinue { get; private set; }
+        private int usedChances = 0;
 
-        public string Judge(string input)
+        public bool CanContinue => usedChances < MaxChances;
+
+        public string JudgeAnswer(string input)
         {
             if (IsValidInput(input))
             {
                 return WrongInputMessage;
             }
+
+            if (usedChances >= MaxChances)
+            {
+                return "Game Over";
+            }
+
+            usedChances++;
 
             return string.Empty;
         }

@@ -6,7 +6,7 @@ namespace BullsAndCows
 {
     public class Judge
     {
-        public static string SetSecret()
+        public virtual string SetSecret()
         {
             string secret = string.Empty;
             List<int> digits = Enumerable.Range(0, 9).ToList();
