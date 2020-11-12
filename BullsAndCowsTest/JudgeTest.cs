@@ -13,5 +13,14 @@ namespace BullsAndCowsTest
             string secret = Judge.SetSecret();
             Assert.Equal(4, secret.Distinct().Count());
         }
+
+        [Fact]
+        public void Judge_should_set_different_secret_different()
+        {
+            var judge = new Judge();
+            var secretOne = Judge.SetSecret();
+            var secretTwo = Judge.SetSecret();
+            Assert.NotEqual(secretOne, secretTwo);
+        }
     }
 }
