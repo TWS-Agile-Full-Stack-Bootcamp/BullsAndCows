@@ -22,5 +22,17 @@ namespace BullsAndCowsTest
             var output = game.Judge(input);
             Assert.Equal("Wrong Input, input again", output);
         }
+
+        [Theory]
+        [InlineData("1 1 3 4")]
+        [InlineData("1 3 3 4")]
+        [InlineData("1 3 4 4")]
+        [InlineData("1 3 4 1")]
+        public void Should_return_wrong_input_message_when_input_digit_no_different(string input)
+        {
+            var game = new BullsAndCowsGame();
+            var output = game.Judge(input);
+            Assert.Equal("Wrong Input, input again", output);
+        }
     }
 }
