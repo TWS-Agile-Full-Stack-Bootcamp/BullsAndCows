@@ -2,7 +2,7 @@
 
 namespace BullsAndCows
 {
-    public class SecretGenerator
+    public sealed class SecretGenerator
     {
         public string GenerateSecret()
         {
