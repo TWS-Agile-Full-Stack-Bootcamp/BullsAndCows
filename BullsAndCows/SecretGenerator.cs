@@ -4,7 +4,7 @@ namespace BullsAndCows
 {
     public class SecretGenerator
     {
-        public string GenerateSecret()
+        public virtual string GenerateSecret()
         {
             throw new NotImplementedException();
         }
